@@ -1,0 +1,122 @@
+#include <iostream>
+#include <cstdlib> // Untuk system("cls") atau system("clear")
+using namespace std;
+
+// Fungsi untuk membersihkan layar
+void clearScreen() {
+    #ifdef _WIN32
+        system("cls"); // Untuk Windows
+    #else1
+        system("clear"); // Untuk Linux / Mac
+    #endif
+}
+
+// Fungsi untuk menampilkan header
+void tampilkanHeader() {
+    cout << "=====================================\n";
+    cout << "     PROGRAM KALKULATOR SEDERHANA    \n";
+    cout << "             KELOMPOK 3              \n";
+    cout << "=====================================\n";
+}
+
+int main() {
+    double angka1, angka2, hasil;
+    char operasi;
+    char pilihan;
+
+    bool ulangProgram = true;
+
+    while (ulangProgram) {
+        clearScreen();
+        tampilkanHeader();
+
+        cout << "\nMenu:\n";
+        cout << "1. Mulai kalkulasi\n";
+        cout << "2. Hapus riwayat & kembali ke awal\n";
+        cout << "3. Keluar program\n";
+        cout << "Pilih menu (1/2/3): ";
+        cin >> pilihan;
+
+        switch (pilihan) {
+            case '1': {
+                char lanjut = 'y';
+                while (lanjut == 'y' || lanjut == 'Y') {
+                    // Input angka dan operator
+                    cout << "\nMasukkan angka pertama  : ";
+                    cin >> angka1;
+                    cout << "Masukkan operator (+, -, *, /, %) : ";
+                    cin >> operasi;
+                    cout << "Masukkan angka kedua    : ";
+                    cin >> angka2;
+
+                    // Pilih operasi menggunakan switch
+                    switch (operasi) {
+                        case '+':
+                            hasil = angka1 + angka2;
+                            cout << "Hasil: " << angka1 << " + " << angka2 << " = " << hasil << endl;
+                            break;
+                        case '-':
+                            hasil = angka1 - angka2;
+                            cout << "Hasil: " << angka1 << " - " << angka2 << " = " << hasil << endl;
+                            break;
+                        case '*':
+                            hasil = angka1 * angka2;
+                            cout << "Hasil: " << angka1 << " * " << angka2 << " = " << hasil << endl;
+                            break;
+                        case '/':
+                            if (angka2 != 0) {
+                                hasil = angka1 / angka2;
+                                cout << "Hasil: " << angka1 << " / " << angka2 << " = " << hasil << endl;
+                            } else {
+                                cout << "Error: Tidak bisa membagi dengan nol!" << endl;
+                            }
+                            break;
+                        case '%':
+                            if ((int)angka2 == 0) {
+                                cout << "Error: Tidak bisa modulus dengan nol!" << endl;
+                            } else if (angka1 == (int)angka1 && angka2 == (int)angka2) {
+                                int hasilModulus = (int)angka1 % (int)angka2;
+                                cout << "Hasil: " << (int)angka1 << " % " << (int)angka2 << " = " << hasilModulus << endl;
+                            } else {
+                                cout << "Error: Modulus hanya bisa digunakan untuk bilangan bulat!" << endl;
+                            }
+                            break;
+                        default:
+                            cout << "Operator tidak valid! Gunakan (+, -, *, /, %)" << endl;
+                            break;
+                    }
+
+                    cout << "\nApakah ingin menghitung lagi? (y/n): ";
+                    cin >> lanjut;
+                }
+                break;
+            }
+
+            case '2':
+                // Membersihkan layar akan dilakukan di awal perulangan
+                continue;
+
+            case '3':
+                ulangProgram = false;
+                break;
+
+            default:
+                cout << "Pilihan tidak valid. Silakan pilih 1, 2, atau 3.\n";
+                break;
+        }
+
+        if (pilihan != '3') {
+            cout << "\nTekan Enter untuk kembali ke menu utama...";
+            cin.ignore(); // membersihkan newline
+            cin.get();    // tunggu Enter
+        }
+    }
+
+    clearScreen();
+    cout << "\n=====================================\n";
+    cout << " Terima kasih telah menggunakan program \n";
+    cout << "         KALKULATOR KELOMPOK 3        \n";
+    cout << "=====================================\n";
+
+    return 0;
+}
